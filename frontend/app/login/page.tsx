@@ -6,6 +6,8 @@ import { Alert, Field } from '@/components/ui';
 import { useSubmit } from '@/lib/hooks';
 import { useAuth } from '@/lib/auth';
 
+// Demo mode: set NEXT_PUBLIC_DEMO_MODE=true and NEXT_PUBLIC_DEMO_PASSWORD in .env.local
+// to show one-click logins for the seeded demo accounts. Never enable with real data.
 const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
 const DEMO_PASSWORD = process.env.NEXT_PUBLIC_DEMO_PASSWORD ?? '';
 const DEMO_ACCOUNTS = [
