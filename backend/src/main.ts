@@ -5,7 +5,8 @@ import helmet from 'helmet';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule);
+  (app.getHttpAdapter().getInstance() as any).set('trust proxy', 1);
 
   app.use(helmet());
   const origins = (process.env.CORS_ORIGINS ?? 'http://localhost:3000').split(',').map((o) => o.trim());
