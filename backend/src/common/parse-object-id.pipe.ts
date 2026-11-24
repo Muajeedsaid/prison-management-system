@@ -1,0 +1,11 @@
+import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
+import { isValidObjectId } from 'mongoose';
+
+/** Turns a malformed :id into a clean 400 instead of a database error. */
+@Injectable()
+export class ParseObjectIdPipe implements PipeTransform<string, string> {
+  transform(value: string): string {
+    if (!isValidObjectId(value)) throw new BadRequestException('Invalid id format');
+    return value;
+  }
+}
