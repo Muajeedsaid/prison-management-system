@@ -68,7 +68,10 @@ export class InmatesService {
       dto.admissionDate ?? current.admissionDate.toISOString(),
       dto.expectedReleaseDate ?? current.expectedReleaseDate?.toISOString(),
     );
-    await this.model.updateOne({ _id: id }, dto);
+        const changes: Record<string, unknown> = { ...dto };
+    // A transferred-out inmate leaves the facility, so free the bed.
+    if (dto.status === InmateStatus.TRANSFERRED_OUT) changes.cell = null;
+    await this.model.updateOne({ _id: id }, changes);
     return this.findOne(id);
   }
 
